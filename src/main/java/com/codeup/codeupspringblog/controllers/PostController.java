@@ -8,24 +8,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class PostController {
- @GetMapping("/posts")
+    @GetMapping("/posts")
     @ResponseBody
     public String posts(){
      return "posts index page";
  }
- @GetMapping("/posts/{id}")
+    @GetMapping("/posts/{id}")
     @ResponseBody
-    public String postsById(@PathVariable String id){
-     return "<h1>View an " + id + " post </h1>";
+    public String viewPost(@PathVariable long id){
+     return "Viewing post with the ID of: " + id;
  }
- @GetMapping("/posts/create")
+    @GetMapping("/posts/create")
     @ResponseBody
-    public String getCreate(){
-     return "<h2>View the form for creating</h2>";
+    public String showPostForm(){
+     return "View the form for creating";
  }
- @PostMapping("/posts/create")
+    @PostMapping("/posts/create")
     @ResponseBody
-    public String postCreate(){
-     return "<h3>Create new posts</h3>";
+    public String submitNewPost(){
+     return "Create new posts";
  }
 }
