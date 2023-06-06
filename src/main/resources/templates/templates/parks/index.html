@@ -1,25 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Post index</title>
 </head>
 <body>
-<h1>Welcome <span th:text="${user}"></span> to the Nature Zone!</h1>
-<h1 th:if="${parks.isEmpty()}">No parks have been found.</h1>
-<ul>
-    <!--    <li th:text="${banff.name}">Test</li>-->
-    <!--    <small th:text="${banff.location}"></small>-->
-    <!--    <li th:text="${badlands.name}">Test</li>-->
-    <!--    <small th:text="${badlands.location}"></small>-->
-    <!--    <li th:text="${whiteSands.name}">Test</li>-->
-    <!--    <small th:text="${whiteSands.location}"></small>-->
-
-    <!-- th:block is a ghost element that will not be rendered in the HTML structure -->
-    <th:block th:each="park : ${parks}">
-        <li th:text="${park.name}"></li>
-        <small th:text="${park.location}"></small>
-    </th:block>
-</ul>
+<div th:each="post : ${posts}">
+    <h3 th:text="${post.title}"/>
+    <p th:text="${post.description}"/>
+</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.codeup.codeupspringblog;
+package com.codeup.codeupspringblog.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
