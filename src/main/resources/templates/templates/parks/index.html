@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Welcome <span th:text="${user}"></span> to the Nature Zone!</h1>
+<h1 th:if="${parks.isEmpty()}">No parks have been found.</h1>
+<ul>
+    <!--    <li th:text="${banff.name}">Test</li>-->
+    <!--    <small th:text="${banff.location}"></small>-->
+    <!--    <li th:text="${badlands.name}">Test</li>-->
+    <!--    <small th:text="${badlands.location}"></small>-->
+    <!--    <li th:text="${whiteSands.name}">Test</li>-->
+    <!--    <small th:text="${whiteSands.location}"></small>-->
+
+    <!-- th:block is a ghost element that will not be rendered in the HTML structure -->
+    <th:block th:each="park : ${parks}">
+        <li th:text="${park.name}"></li>
+        <small th:text="${park.location}"></small>
+    </th:block>
+</ul>
+</body>
+</html>
