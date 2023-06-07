@@ -11,6 +11,10 @@
   <input type="text" name="title" id="title">
   <label for="body">Body: </label>
   <textarea type="text" name="body" id="body"></textarea>
+  <th:block th:each="category : ${categories}">
+    <label th:text="${category.name}"></label>
+    <input type="checkbox" name="category" th:value="${category.id}">
+  </th:block>
   <button>Create Post</button>
 </form>
 <body>
