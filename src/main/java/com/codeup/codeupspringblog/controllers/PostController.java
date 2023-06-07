@@ -3,6 +3,7 @@ package com.codeup.codeupspringblog.controllers;
 import com.codeup.codeupspringblog.models.Post;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 
+import com.codeup.codeupspringblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,11 @@ import java.util.List;
 public class PostController {
 
     private final PostRepository postsDao;
+    private final UserRepository usersDao;
 
-    public PostController(PostRepository postsDao) {
+    public PostController(PostRepository postsDao, UserRepository usersDao) {
         this.postsDao = postsDao;
+        this.usersDao = usersDao;
     }
 
     @GetMapping("/posts")
@@ -34,7 +37,7 @@ public class PostController {
     @GetMapping("/posts/{id}")
 
     public String post(@PathVariable Long id, Model model) {
-        Post p1 = new Post(1L,"YOOO", "This is my first post!");
+        Post p1 = new Post("YOOO", "This is my first post!");
         model.addAttribute("title", p1.getTitle());
         model.addAttribute("body", p1.getBody());
         return "posts/show";
@@ -42,6 +45,7 @@ public class PostController {
 
     @GetMapping("/posts/create")
     public String create() {
+
         return "posts/create";
     }
 

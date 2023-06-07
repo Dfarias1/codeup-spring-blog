@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+</head>
+<body>
+
+<h1>All Posts</h1>
+
+<form action="/posts/create" method = "get">
+    <button>Create Post</button>
+</form>
+
+<th:block th:each="post : ${posts}">
+    <h2 th:text="${post.title}"></h2>
+    <p th:text="${post.body}"></p>
+</th:block>
+
+</body>
+</html>
