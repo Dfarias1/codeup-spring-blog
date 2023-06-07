@@ -1,21 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <title>Index</title>
 </head>
 <body>
 
-<h1>All Posts</h1>
+<nav th:replace="partials/navbar :: navbar"></nav>
 
-<form action="/posts/create" method = "get">
-    <button>Create Post</button>
-</form>
-
-<th:block th:each="post : ${posts}">
-    <h2 th:text="${post.title}"></h2>
-    <p th:text="${post.body}"></p>
+<h1 th:replace="partials/header :: header"></h1>
+<th:block th:each="post: ${posts}">
+    <li th:text="${post.title}"></li>
+    <li th:text="${post.body}"></li>
 </th:block>
+
+<footer th:replace="partials/footer :: footer"></footer>
 
 </body>
 </html>
