@@ -1,6 +1,7 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.models.Post;
+import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 
 import com.codeup.codeupspringblog.repositories.UserRepository;
@@ -52,9 +53,12 @@ public class PostController {
     @PostMapping("/posts/create")
 
     public String createPost(@RequestParam String title, String body, Model model) {
+
+        User user = usersDao.findById(1L).get();
         model.addAttribute("title", title);
         model.addAttribute("body", body);
         Post post = new Post(title, body);
+        post.setUser(user);
         postsDao.save(post);
 
         return "redirect:/posts";
