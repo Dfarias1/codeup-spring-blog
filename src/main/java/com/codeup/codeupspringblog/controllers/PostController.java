@@ -6,28 +6,29 @@ import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostCategoriesRepository;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
+import com.codeup.codeupspringblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class PostController {
     private final PostRepository postsDao;
     private final UserRepository userDao;
     private final PostCategoriesRepository catDao;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postsDao, UserRepository userDao, PostCategoriesRepository catDao) {
+    public PostController(PostRepository postsDao, UserRepository userDao, PostCategoriesRepository catDao, EmailService emailServiceervice) {
         this.postsDao = postsDao;
         this.userDao = userDao;
         this.catDao = catDao;
+        this.emailService = emailServiceervice;
     }
 
     @GetMapping("/posts")
-
     public String viewPosts(Model model) {
         model.addAttribute("posts", postsDao.findAll());
         return "posts/index";
