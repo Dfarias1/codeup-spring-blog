@@ -64,16 +64,10 @@ public class PostController {
         editPost.setBody(post.getBody());
         post.setUser(user);
         postsDao.save(post);
+        emailService.prepareAndSend(post, "A new post has been POSTED", "Checkout new post from the community!", "daniel.h.farias2@gmail.com");
         return "redirect:/posts/" + id;
     }
-    @PostMapping("/posts/create")
-    public String submitForm(@ModelAttribute Post post) {
-        User user = userDao.findUserById(1L);
-        post.setUser(user);
-        postsDao.save(post);
-        emailService.prepareAndSend(post, "A new post has been POSTED", "The message would go here, and be much cooler if I wanted.", "jason.merrell@codeup.com");
-        return "redirect:/posts";
-    }
+
 
 
     @PostMapping("/posts/create")
