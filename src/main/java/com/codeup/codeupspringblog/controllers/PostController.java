@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class PostController {
@@ -45,6 +46,22 @@ public class PostController {
         // show categories in form
         model.addAttribute("categories", catDao.findAll());
         return "/posts/create";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String editForm(@PathVariable long id, Model model){
+        Optional<Post> post = postsDao.findById(id);
+        model.addAttribute("post", post);
+        return "posts/create";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String submitEditForm(@PathVariable long id, @ModelAttribute Post post){
+        User user = userDao.findUserById(1L);
+        post.setUser(user);
+        post.setId(id);
+        postsDao.save(post);
+        return "redirect:/posts/" + id;
     }
 
 
