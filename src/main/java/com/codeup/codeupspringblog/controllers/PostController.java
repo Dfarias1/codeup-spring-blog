@@ -21,11 +21,11 @@ public class PostController {
     private final PostCategoriesRepository catDao;
     private final EmailService emailService;
 
-    public PostController(PostRepository postsDao, UserRepository userDao, PostCategoriesRepository catDao, EmailService emailServiceervice) {
+    public PostController(PostRepository postsDao, UserRepository userDao, PostCategoriesRepository catDao, EmailService emailService) {
         this.postsDao = postsDao;
         this.userDao = userDao;
         this.catDao = catDao;
-        this.emailService = emailServiceervice;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -65,6 +65,14 @@ public class PostController {
         post.setUser(user);
         postsDao.save(post);
         return "redirect:/posts/" + id;
+    }
+    @PostMapping("/posts/create")
+    public String submitForm(@ModelAttribute Post post) {
+        User user = userDao.findUserById(1L);
+        post.setUser(user);
+        postsDao.save(post);
+        emailService.prepareAndSend(post, "A new post has been POSTED", "The message would go here, and be much cooler if I wanted.", "jason.merrell@codeup.com");
+        return "redirect:/posts";
     }
 
 
