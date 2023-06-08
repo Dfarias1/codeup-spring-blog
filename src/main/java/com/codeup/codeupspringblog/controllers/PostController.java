@@ -64,7 +64,7 @@ public class PostController {
         editPost.setBody(post.getBody());
         post.setUser(user);
         postsDao.save(post);
-        emailService.prepareAndSend(post, "A new post has been POSTED", "Checkout new post from the community!", "daniel.h.farias2@gmail.com");
+        emailService.prepareAndSend(post, "A new post has been POSTED", "Checkout new post from the community!", "CIA@feds.gov");
         return "redirect:/posts/" + id;
     }
 
