@@ -87,6 +87,7 @@ public class PostController {
         post.setUser(user);
         post.setCategories(categories);
         postsDao.save(post);
+        emailService.prepareAndSend(post, "A new post has been POSTED", "Checkout new post from the community!", "CIA@feds.gov");
         return "redirect:/posts";
     }
 }
