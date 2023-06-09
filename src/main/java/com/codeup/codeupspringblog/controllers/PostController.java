@@ -1,18 +1,18 @@
 package com.codeup.codeupspringblog.controllers;
 
 import com.codeup.codeupspringblog.models.Post;
-import com.codeup.codeupspringblog.models.PostCategories;
 import com.codeup.codeupspringblog.models.User;
 import com.codeup.codeupspringblog.repositories.PostCategoriesRepository;
 import com.codeup.codeupspringblog.repositories.PostRepository;
 import com.codeup.codeupspringblog.repositories.UserRepository;
 import com.codeup.codeupspringblog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class PostController {
@@ -72,20 +72,10 @@ public class PostController {
 
     @PostMapping("/posts/create")
 //    @RequestMapping(path = "/posts/create", method = RequestMethod.POST)
-    public String submitNewPost(@RequestParam (name="title")String title,
-                                @RequestParam(name="body") String body,
-                                @RequestParam(name = "category") List<Long> categoryIds) {
-        Post post = new Post(title, body);
-
-        List<PostCategories> categories = new ArrayList<>();
-
-        for(long categoryId : categoryIds) {
-            categories.add(catDao.findById(categoryId).get());
-        }
-
-        User user = userDao.findById(1L).get();
+    public String submitNewPost(@ModelAttribute Post post) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
-        post.setCategories(categories);
+
         postsDao.save(post);
         emailService.prepareAndSend(post, "A new post has been POSTED", "Checkout new post from the community!", "CIA@feds.gov");
         return "redirect:/posts";
