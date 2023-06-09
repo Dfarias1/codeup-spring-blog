@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
@@ -23,7 +23,13 @@
     </style>
 </head>
 <body>
+<div sec:authorize="isAuthenticated()">
+    This content is only shown to authenticated users.
 
+    User ID: <span th:text="${#authentication.principal.id}"/>
+    Username: <span th:text="${#authentication.principal.username}"/>
+    Email: <span th:text="${#authentication.principal.email}"/>
+</div>
 <nav th:replace="partials/navbar :: navbar"></nav>
 
 <h1 th:replace="partials/header :: header"></h1>
