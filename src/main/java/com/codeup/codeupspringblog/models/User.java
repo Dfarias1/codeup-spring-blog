@@ -27,4 +27,11 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     List<Post> posts;
+
+    public User(User copy) {
+        this.id = copy.id; // This line is SUPER important! Many things won't work if it's absent
+        this.email = copy.email;
+        this.username = copy.username;
+        this.password = copy.password;
+    }
 }

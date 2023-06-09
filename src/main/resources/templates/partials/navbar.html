@@ -3,11 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>Navbar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    }
+
+    .navbar {
+    padding: 15px 0;
+    }
+
+    .navbar-brand {
+    font-weight: bold;
+    color: #333;
+    font-size: 24px;
+    }
+
+    .navbar-toggler {
+    border: none;
+    padding: 0;
+    outline: none;
+    background-color: transparent;
+    }
+
+
+    .navbar-nav .nav-link {
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    }
+
+    .navbar-nav .nav-link:hover {
+    color: #007bff;
+    }
+
+    .dropdown-menu {
+    background-color: #f8f9fa;
+    }
+
+    .dropdown-item {
+    color: #333;
+    font-size: 14px;
+    }
+
+    .dropdown-item:hover {
+    background-color: #007bff;
+    color: #fff;
+    }
+
+    .form-control {
+    border-color: #007bff;
+    }
+
+    .btn-outline-success {
+    color: #007bff;
+    border-color: #007bff;
+    }
+
+    .btn-outline-success:hover {
+    background-color: #007bff;
+    color: #fff;
+    }
+
+    .btn-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+    }
+
+    .btn-link:hover {
+    text-decoration: underline;
+    }
+    </style>
 </head>
 <body>
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light container">
     <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -20,7 +95,7 @@
                 <a class="nav-link" href="#">Link</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -38,9 +113,9 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
+        <form th:action="@{/logout}" th:method="post">
+            <button class="btn btn-link" style="margin-top: 8px">Logout</button>
+        </form>
     </div>
 </nav>
-
-
 </body>
-</html>
