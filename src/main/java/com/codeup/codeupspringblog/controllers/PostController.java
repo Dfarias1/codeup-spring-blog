@@ -57,17 +57,29 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String submitEditForm(@PathVariable long id, @ModelAttribute Post post){
-        Post editPost = postsDao.findById(id).get();
-        User user = userDao.findUserById(1L);
-        editPost.setTitle(post.getTitle());
-        editPost.setBody(post.getBody());
-        post.setUser(user);
-        postsDao.save(post);
-        emailService.prepareAndSend(post, "A new post has been POSTED", "Checkout new post from the community!", "CIA@feds.gov");
+    public String submitEditForm(@PathVariable long id, @ModelAttribute Post post, String method) {
+        Post existingPost = postsDao.findById(id).orElse(null);
+        if (existingPost == null) {
+            // Handle the case when the post with the given ID does not exist
+            return "redirect:/posts";
+        }
+
+
+        if (method != null && method.equalsIgnoreCase("DELETE")) {
+            postsDao.deleteById(id);
+            return "redirect:/posts";
+        }
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        existingPost.setTitle(post.getTitle());
+        existingPost.setBody(post.getBody());
+        existingPost.setUser(user);
+        postsDao.save(existingPost);
+
+        emailService.prepareAndSend(existingPost, "A post has been updated", "Checkout the updated post from the community!", "CIA@feds.gov");
+
         return "redirect:/posts/" + id;
     }
-
 
 
     @PostMapping("/posts/create")
@@ -78,6 +90,11 @@ public class PostController {
 
         postsDao.save(post);
         emailService.prepareAndSend(post, "A new post has been POSTED", "Checkout new post from the community!", "CIA@feds.gov");
+        return "redirect:/posts";
+    }
+    @GetMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        postsDao.deleteById(id);
         return "redirect:/posts";
     }
 }

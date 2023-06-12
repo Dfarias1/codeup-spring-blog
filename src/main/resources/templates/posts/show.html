@@ -35,7 +35,10 @@
 <ul>
     <li th:each="category: ${post.categories}" th:text="${category.name}"></li>
 </ul>
-
+<form action="/posts/${post.id}/delete" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Delete</button>
+</form>
 
 <footer th:replace="partials/footer :: footer"></footer>
 </body>
