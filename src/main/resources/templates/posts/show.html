@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
     <meta charset="UTF-8">
     <title>Show</title>
@@ -35,7 +35,7 @@
 <ul>
     <li th:each="category: ${post.categories}" th:text="${category.name}"></li>
 </ul>
-<form action="/posts/${post.id}/delete" method="post">
+<form th:action="@{/posts/{id}/delete(id=${post.id})}" method="get">
     <input type="hidden" name="_method" value="DELETE">
     <button type="submit">Delete</button>
 </form>
