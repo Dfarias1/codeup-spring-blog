@@ -17,26 +17,55 @@
             margin-bottom: 20px;
         }
 
-        li {
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #f8f8f8;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .card-body {
+            margin-bottom: 10px;
+        }
+
+        .user-info {
+            font-style: italic;
             margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 <div sec:authorize="isAuthenticated()">
-    This content is only shown to authenticated users.
+    <div class="card">
+        <p>This content is only shown to authenticated users.</p>
 
-    User ID: <span th:text="${#authentication.principal.id}"/>
-    Username: <span th:text="${#authentication.principal.username}"/>
-    Email: <span th:text="${#authentication.principal.email}"/>
+        <div class="user-info">
+            User ID: <span th:text="${#authentication.principal.id}"/>
+        </div>
+        <div class="user-info">
+            Username: <span th:text="${#authentication.principal.username}"/>
+        </div>
+        <div class="user-info">
+            Email: <span th:text="${#authentication.principal.email}"/>
+        </div>
+    </div>
 </div>
+
 <nav th:replace="partials/navbar :: navbar"></nav>
 
 <h1 th:replace="partials/header :: header"></h1>
-<th:block th:each="post: ${posts}">
-    <li th:text="${post.title}"></li>
-    <li th:text="${post.body}"></li>
-</th:block>
+
+<div th:each="post: ${posts}" class="card">
+    <div class="card-title" th:text="${post.title}"></div>
+    <div class="card-body" th:text="${post.body}"></div>
+</div>
 
 <footer th:replace="partials/footer :: footer"></footer>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Show</title>
@@ -12,6 +12,13 @@
 
         h1 {
             color: #333;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 20px;
         }
 
         ul {
@@ -29,16 +36,19 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 
 <h1 th:replace="partials/header :: header"></h1>
-<th:block th:text="${post.title}"></th:block>
-<th:block th:text="${post.body}"></th:block>
-<th:block th:text="${post.user.email}"></th:block>
-<ul>
-    <li th:each="category: ${post.categories}" th:text="${category.name}"></li>
-</ul>
-<form th:action="@{/posts/{id}/delete(id=${post.id})}" method="get">
-    <input type="hidden" name="_method" value="DELETE">
-    <button type="submit">Delete</button>
-</form>
+
+<div class="card">
+    <h2 th:text="${post.title}"></h2>
+    <p th:text="${post.body}"></p>
+    <p th:text="${post.user.email}"></p>
+    <ul>
+        <li th:each="category: ${post.categories}" th:text="${category.name}"></li>
+    </ul>
+    <form th:action="@{/posts/{id}/delete(id=${post.id})}" method="get">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit">Delete</button>
+    </form>
+</div>
 
 <footer th:replace="partials/footer :: footer"></footer>
 </body>
